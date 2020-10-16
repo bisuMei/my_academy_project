@@ -18,6 +18,10 @@ def index(request):
     return render(request, 'training/index.html', {'title': 'Main page'})
 
 
+def about_me(request):
+    return render(request, 'training/about_me.html', {'title': 'About me'})
+
+
 def user_login(request):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
