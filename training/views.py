@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from . import forms
 # from . import models
-from .forms import RegisterForm
+from .forms import RegisterForm, WorkoutForm
 
 
 @login_required
@@ -55,3 +55,20 @@ def register(response):
         form = RegisterForm()
 
     return render(response, "registration/register.html", {'form': form})
+
+
+def create(request):
+    error = ''
+    if request.method == "POST":
+        form = WorkoutForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            error = "Entered incorrect data"
+    form = WorkoutForm()
+    context = {
+        'form': form,
+        'error': error
+    }
+    return render(request, 'training/create.html', context)
