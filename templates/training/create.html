@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>Create workout</h1>
-    <form method="post">
+    <form method="post" class="form-group col-md-6">
         {% csrf_token %}
         {{ form.title }}<br>
         {{ form.week }}<br>

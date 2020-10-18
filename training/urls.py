@@ -9,7 +9,7 @@ class MyHack(auth_views.PasswordResetView):
 
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.MaterialListView.as_view(), name='home'),
     path('about_me/', views.about_me, name='about_me'),
     path('create/', views.create, name='create'),
     path('login/', auth_views.LoginView.as_view(), name='login'),

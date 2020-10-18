@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Hello mate
+{% endblock %}
+
 {% block content %}
-    <h1>Hello world</h1>
+    <h1>Your daily workout</h1>
+
+    {% for workout in workouts %}
+
+        <h2>
+
+                {{ workout.title }}
+            </a>
+        </h2>
+
+        <p>
+            {{ workout.workout|linebreaks }}
+        </p>
+    {% endfor %}
+
 {% endblock %}
