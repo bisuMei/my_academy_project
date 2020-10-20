@@ -81,3 +81,8 @@ class MaterialListView(LoginRequiredMixin, ListView):
     queryset = models.Workout.objects.all()
     context_object_name = 'workouts'
     template_name = 'training/index.html'
+
+
+@login_required
+def view_profile(request):
+    return render(request, 'profile.html', {'user':request.user})
