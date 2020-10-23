@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -13,6 +13,8 @@ from . import models
 from .forms import RegisterForm, WorkoutForm
 
 from django.views.generic import ListView
+
+from .models import Workout
 
 
 @login_required
@@ -65,8 +67,11 @@ def create(request):
     if request.method == "POST":
         form = WorkoutForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            n = form.cleaned_data['title']
+            t = Workout(title=n)
+            t.save()
+            request.user.user_workout.add(t)
+            return redirect('/workouts')
         else:
             error = "Entered incorrect data"
     form = WorkoutForm()
@@ -77,12 +82,40 @@ def create(request):
     return render(request, 'training/create.html', context)
 
 
-class MaterialListView(LoginRequiredMixin, ListView):
-    queryset = models.Workout.objects.all()
-    context_object_name = 'workouts'
-    template_name = 'training/index.html'
+# class MaterialListView(LoginRequiredMixin, ListView):
+#     queryset = models.Workout.objects.all()
+#     context_object_name = 'workouts'
+#     template_name = 'training/workouts.html'
 
 
 @login_required
 def view_profile(request):
-    return render(request, 'profile.html', {'user':request.user})
+    return render(request, 'profile.html', {'user': request.user})
+
+
+def workout_details(request, id):
+    workout = get_object_or_404(models.Workout, pk=id)
+
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = forms.CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.workout = workout
+            new_comment.save()
+            return redirect(workout)
+    else:
+        comment_form = forms.CommentForm()
+
+    return render(request,
+                  'training/detail.html',
+                  {'workout': workout,
+                   'form': comment_form,
+                   'was_added': new_comment})
+
+
+def all_workouts(request):
+    workouts_list = models.Workout.objects.all()
+    return render(request,
+                  'training/workouts.html',
+                  {'workouts': workouts_list})

@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Hello mate
-{% endblock %}
+{% block title %} Person profile {% endblock %}
 
 {% block content %}
-    <h1>Your daily workout</h1>
+    <p>birthday:{{ user.profile.birth }}</p>
+    <p>name: {{ user.first_name|add:user.last_name }}</p>
+    <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>
 
-    {% for workout in workouts %}
-
-        <h2>
-
-                {{ workout.title }}
-            </a>
-        </h2>
-
-        <p>
-            {{ workout.workout|linebreaks }}
-        </p>
-    {% endfor %}
-
+        <a href="{% url 'training:workouts' %}">Workouts</a>
 {% endblock %}
+
+request.user.profile.personal_workout

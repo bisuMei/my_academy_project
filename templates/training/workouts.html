@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Hello mate
+{% endblock %}
+
+{% block content %}
+    <h1>Your daily workout</h1>
+
+        {% for workout in user.user_workout.all %}
+
+            <h2>
+                <a href="{{ workout.get_absolute_url }}">
+                    {{ workout.title }}
+                </a>
+            </h2>
+
+            <p>
+                {{ workout.workout_body|linebreaks }}
+            </p>
+        {% endfor %}
+
+
+
+{% endblock %}

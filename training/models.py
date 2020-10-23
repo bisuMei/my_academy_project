@@ -8,16 +8,9 @@ from django.conf import settings
 
 class Workout(models.Model):
     title = models.CharField(max_length=50)
-    week = models.CharField(max_length=50)
-    day = models.CharField(max_length=20)
-    workout = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    publish = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User,
-                               on_delete=models.CASCADE,
-                               related_name='user_workout',
-                               null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    workout_body = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_workout', null=True)
 
     def __str__(self):
         return self.title
@@ -26,6 +19,9 @@ class Workout(models.Model):
         verbose_name = 'workout'
         verbose_name_plural = 'workouts'
 
+    def get_absolute_url(self):
+        return reverse('training:workout_details', args=[str(self.id)])
+
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -33,5 +29,14 @@ class Profile(models.Model):
     birth = models.DateTimeField(blank=True, null=True)
     photo = models.ImageField(upload_to="user/%Y/%m/%d", blank=True)
 
-    def __str(self):
-        return '{}profile'.format(self.user.first_name)
+    def __str__(self):
+        return '{} profile'.format(self.user.username)
+
+
+class Comment(models.Model):
+    workout = models.ForeignKey(Workout,
+                                on_delete=models.CASCADE,
+                                related_name='comments')
+    name = models.CharField(max_length=80)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
