@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} {{ workout.title }} {% endblock %}
+
+{% block content %}
+    <a href="{% url "training:workouts" %}">All workouts</a>
+    <h1>{{ workout.title }}</h1>
+    <p>
+        {{ workout.workout_body|linebreaks }}
+    </p>
+    <p>
+    {% for comment in workout.comments.all %}
+        <p>Comment #{{ forloop.counter }} by {{ comment.name }}</p>
+        {{ comment.body }}<br>
+    {% empty %}
+        No comments. You can leave one
+    {% endfor %}
+
+{#    {% if was_added %}#}
+{#        New comment was added#}
+{#    {% else %}#}
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Add comment">
+    </form>
+{#    {% endif %}#}
+
+    </p>
+{% endblock %}
