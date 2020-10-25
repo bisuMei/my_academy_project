@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Create workout
+  Update workout
 {% endblock %}
 
 {% block content %}
-    <h1>Create workout</h1>
+    <h1>Update workout</h1>
     <form method="post" class="form-group col-md-6">
         {% csrf_token %}
         {{ form.title }}<br>
@@ -13,7 +13,6 @@
         {{ form.workout_body }}<br>
         {{ form.user }}<br>
 
-        <button type="submit" class="btn btn-success">Add workout</button>
-    <span>{{ error }}</span>
+        <button type="submit" class="btn btn-success">Update workout</button>
     </form>
 {% endblock %}

@@ -16,7 +16,9 @@
     {% if request.user.is_authenticated %}
         <a class="btn btn-outline-primary" href="{% url "training:logout" %}">Logout</a>
         <a class="btn btn-outline-primary" href="{% url "training:profile" %}">Profile</a>
-        <a class="p-2 text-dark" href="{% url "training:create" %}">Create workout</a>
+        {% if perms.training.add_workout %}
+            <a class="p-2 text-dark" href="{% url "training:create" %}">Create workout</a>
+        {% endif %}
     {% else %}
         <a class="btn btn-outline-primary" href="{% url "training:register" %}">Register</a>
         <a class="btn btn-outline-primary" href="{% url "training:login" %}">Login</a>

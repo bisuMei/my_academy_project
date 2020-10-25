@@ -8,7 +8,6 @@ from django.conf import settings
 
 class Workout(models.Model):
     title = models.CharField(max_length=50)
-    date = models.DateTimeField(auto_now_add=True)
     workout_body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_workout', null=True)
 
@@ -28,6 +27,9 @@ class Profile(models.Model):
                                 on_delete=models.CASCADE)
     birth = models.DateTimeField(blank=True, null=True)
     photo = models.ImageField(upload_to="user/%Y/%m/%d", blank=True)
+
+    class Meta:
+        permissions = (('add_workout', 'Can add workout'),)
 
     def __str__(self):
         return '{} profile'.format(self.user.username)

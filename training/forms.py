@@ -19,10 +19,10 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class WorkoutForm(ModelForm):
+class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout
-        fields = ['title', 'workout_body']
+        fields = ['title', 'workout_body', 'user']
         widgets = {
             'title': TextInput(attrs={
                 'class': 'form-control',

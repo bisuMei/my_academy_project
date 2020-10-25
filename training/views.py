@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth import authenticate
@@ -5,7 +6,7 @@ from django.contrib.auth import login
 from django.http import HttpResponse
 
 # from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from . import forms
@@ -62,15 +63,22 @@ def register(response):
 
 
 @login_required
+@permission_required('training.add_workout')
 def create(request):
     error = ''
     if request.method == "POST":
         form = WorkoutForm(request.POST)
         if form.is_valid():
-            n = form.cleaned_data['title']
-            t = Workout(title=n)
-            t.save()
-            request.user.user_workout.add(t)
+            title = form.cleaned_data['title']
+            body = form.cleaned_data['workout_body']
+            name = form.cleaned_data['user']
+            workout_ = Workout(title=title, workout_body=body)
+            # workout_.save()
+            user_ = User.objects.get(username=name)
+            user_.save()
+            workout_.user = user_
+            workout_.save()
+            # request.user.user_workout.add(t)
             return redirect('/workouts')
         else:
             error = "Entered incorrect data"
@@ -119,3 +127,24 @@ def all_workouts(request):
     return render(request,
                   'training/workouts.html',
                   {'workouts': workouts_list})
+
+
+def update_workout(request, id):
+    workout = get_object_or_404(models.Workout, pk=id)
+    form = WorkoutForm(request.POST, instance=workout)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    form = WorkoutForm()
+    context = {'form': form}
+    return render(request, 'training/update.html', context)
+
+
+def delete_workout(request, id):
+    context = {}
+    workout = get_object_or_404(models.Workout, pk=id)
+    if request.method == 'POST':
+        workout.delete()
+        return redirect('/workouts')
+    return render(request, 'training/delete.html', context)

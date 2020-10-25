@@ -6,8 +6,8 @@
     <p>birthday:{{ user.profile.birth }}</p>
     <p>name: {{ user.first_name|add:user.last_name }}</p>
     <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>
+    <a href="{% url 'training:workouts' %}">Workouts</a>
 
-        <a href="{% url 'training:workouts' %}">Workouts</a>
+
 {% endblock %}
 
-request.user.profile.personal_workout

@@ -4,6 +4,8 @@
 
 {% block content %}
     <a href="{% url "training:workouts" %}">All workouts</a>
+    <a href="{% url "training:update_workout" workout.id %}">Update</a>
+    <a href="{% url "training:delete_workout" workout.id %}">Delete</a>
     <h1>{{ workout.title }}</h1>
     <p>
         {{ workout.workout_body|linebreaks }}
