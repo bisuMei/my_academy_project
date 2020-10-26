@@ -1,21 +1,20 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.http import HttpResponse
 
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-# Create your views here.
+
 from . import forms
 from . import models
 from .forms import RegisterForm, WorkoutForm
 
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 
 from .models import Workout
+
 
 
 @login_required
@@ -49,17 +48,17 @@ def user_login(request):
         return render(request, 'training/login.html', {'form': form})
 
 
-def register(response):
-    if response.method == "POST":
-        form = RegisterForm(response.POST)
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-
-        return redirect('/')
+            user = form.save()
+            group = form.cleaned_data['group']
+            group.user_set.add(user)
+            return redirect('/')
     else:
         form = RegisterForm()
-
-    return render(response, "registration/register.html", {'form': form})
+    return render(request, "registration/register.html", {'form': form})
 
 
 @login_required
@@ -148,3 +147,27 @@ def delete_workout(request, id):
         workout.delete()
         return redirect('/workouts')
     return render(request, 'training/delete.html', context)
+
+#
+# class ProfileView(UpdateView):
+#     model = User
+#
+#     def get_initial(self):
+#         initial = super(ProfileView, self).get_initial()
+#         try:
+#             current_group = self.object.groups.get()
+#         except:
+#             # exception can occur if the edited user has no groups
+#             # or has more than one group
+#             pass
+#         else:
+#             initial['group'] = current_group.pk
+#         return initial
+#
+#     def get_form_class(self):
+#         return ProfileForm
+#
+#     def form_valid(self, form):
+#         self.object.groups.clear()
+#         self.object.groups.add(form.cleaned_data['group'])
+#         return super(ProfileView, self).form_valid(form)

@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.forms import ModelForm, TextInput, Textarea
 
-from .models import Workout, Comment
+from .models import Workout, Comment, Profile
 
 
 class LoginForm(forms.Form):
@@ -13,13 +13,15 @@ class LoginForm(forms.Form):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
+    group = forms.ModelChoiceField(queryset=Group.objects.all(),
+                                   required=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'group']
 
 
-class WorkoutForm(forms.ModelForm):
+class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
         fields = ['title', 'workout_body', 'user']
@@ -34,7 +36,11 @@ class WorkoutForm(forms.ModelForm):
            }
 
 
-class CommentForm(forms.ModelForm):
+class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'body']
+
+
+
+
