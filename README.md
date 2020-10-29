@@ -15,7 +15,8 @@
   Делаем клон с  проекта с git
   Далее:
   1. pip install django
-  2. активируй виртуальное окружение: source myenv/bin/activate
+  2. активируй виртуальное окружение: python -m venv myvenv
+                                      myenv/bin/activate
   3. установи зависимости: pip install -r requirements.txt
   4. проведи миграции: python manage.py makemigrations
                        python manage.py migrate
