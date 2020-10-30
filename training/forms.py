@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, DateTimeInput
 
 from .models import Workout, Comment, Profile
 
@@ -24,7 +24,7 @@ class RegisterForm(UserCreationForm):
 class WorkoutForm(ModelForm):
     class Meta:
         model = Workout
-        fields = ['title', 'workout_body', 'user']
+        fields = ['title', 'workout_body', 'user', 'start_time']
         widgets = {
             'title': TextInput(attrs={
                 'class': 'form-control',
@@ -33,6 +33,9 @@ class WorkoutForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Enter description'
             }),
+            'start_time': DateTimeInput(attrs={
+                'class': 'form-control'
+            })
            }
 
 

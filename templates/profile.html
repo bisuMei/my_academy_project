@@ -3,12 +3,11 @@
 {% block title %} Person profile {% endblock %}
 
 {% block content %}
-{#    <p>birthday:{{ user.profile.birth }}</p>#}
-{#    <p>name: {{ user.first_name|add:user.last_name }}</p>#}
+    <p>birthday:{{ user.profile.birth }}</p>
+    <p>name: {{ user.first_name|add:user.last_name }}</p>
     <form method="post" class="form-group col-md-6">
         {% csrf_token %}
-        <p>{{ user.groups }}</p>
-        <button type="submit" class="btn btn-success">Join to group</button>
+
     </form>
-{#    <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>#}
+    <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>
 {% endblock %}

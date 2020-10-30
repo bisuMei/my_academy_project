@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.urls import reverse
 from django.conf import settings
+
+import datetime
 # Create your models here.
 
 
@@ -10,6 +12,7 @@ class Workout(models.Model):
     title = models.CharField(max_length=50)
     workout_body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_workout', null=True)
+    start_time = models.DateTimeField(default=datetime.date.today)
 
     def __str__(self):
         return self.title
@@ -42,3 +45,4 @@ class Comment(models.Model):
     name = models.CharField(max_length=80)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+

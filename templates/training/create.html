@@ -8,10 +8,12 @@
     <h1>Create workout</h1>
     <form method="post" class="form-group col-md-6">
         {% csrf_token %}
-        {{ form.title }}<br>
-        {{ form.date }}<br>
-        {{ form.workout_body }}<br>
-        {{ form.user }}<br>
+        {{ form.as_p }}
+{#        {{ form.title }}#}
+{#        {{ form.date }}#}
+{#        {{ form.workout_body }}#}
+{#        {{ form.start_time }}#}
+{#        {{ form.user }}#}
 
         <button type="submit" class="btn btn-success">Add workout</button>
     <span>{{ error }}</span>

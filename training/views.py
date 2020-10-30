@@ -6,6 +6,8 @@ from django.http import HttpResponse
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 
 from . import forms
 from . import models
@@ -14,6 +16,11 @@ from .forms import RegisterForm, WorkoutForm
 from django.views.generic import ListView, UpdateView
 
 from .models import Workout
+
+from _datetime import datetime, timedelta
+
+import calendar
+from .utils import Calendar
 
 
 
@@ -71,13 +78,12 @@ def create(request):
             title = form.cleaned_data['title']
             body = form.cleaned_data['workout_body']
             name = form.cleaned_data['user']
-            workout_ = Workout(title=title, workout_body=body)
-            # workout_.save()
+            start = form.cleaned_data['start_time']
+            workout_ = Workout(title=title, workout_body=body, start_time=start)
             user_ = User.objects.get(username=name)
             user_.save()
             workout_.user = user_
             workout_.save()
-            # request.user.user_workout.add(t)
             return redirect('/workouts')
         else:
             error = "Entered incorrect data"
@@ -148,26 +154,40 @@ def delete_workout(request, id):
         return redirect('/workouts')
     return render(request, 'training/delete.html', context)
 
-#
-# class ProfileView(UpdateView):
-#     model = User
-#
-#     def get_initial(self):
-#         initial = super(ProfileView, self).get_initial()
-#         try:
-#             current_group = self.object.groups.get()
-#         except:
-#             # exception can occur if the edited user has no groups
-#             # or has more than one group
-#             pass
-#         else:
-#             initial['group'] = current_group.pk
-#         return initial
-#
-#     def get_form_class(self):
-#         return ProfileForm
-#
-#     def form_valid(self, form):
-#         self.object.groups.clear()
-#         self.object.groups.add(form.cleaned_data['group'])
-#         return super(ProfileView, self).form_valid(form)
+
+class CalendarView(ListView):
+    model = Workout
+    template_name = 'training/calendar.html'
+    success_url = reverse_lazy('calendar')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('month', None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context
+
+
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return datetime(year, month, day=1)
+    return datetime.today()
+
+
+def prev_month(d_obj):
+    first = d_obj.replace(day=1)
+    prev_month_ = first - timedelta(days=1)
+    month = 'month=' + str(prev_month_.year) + '-' + str(prev_month_.month)
+    return month
+
+
+def next_month(d_obj):
+    days_in_month = calendar.monthrange(d_obj.year, d_obj.month)[1]
+    last = d_obj.replace(day=days_in_month)
+    next_month_ = last + timedelta(days=1)
+    month = 'month=' + str(next_month_.year) + '-' + str(next_month_.month)
+    return month
