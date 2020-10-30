@@ -29,6 +29,12 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     birth = models.DateTimeField(blank=True, null=True)
+    height = models.IntegerField(null=True)
+    weight = models.IntegerField(null=True)
+    chest_volume = models.IntegerField(null=True)
+    waist = models.IntegerField(null=True)
+    arm_volume = models.IntegerField(null=True)
+    hip_volume = models.IntegerField(null=True)
     photo = models.ImageField(upload_to="user/%Y/%m/%d", blank=True)
 
     class Meta:

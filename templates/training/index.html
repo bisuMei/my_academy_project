@@ -3,10 +3,21 @@
 {% block title %} Person profile {% endblock %}
 
 {% block content %}
-    <p>birthday:{{ user.profile.birth }}</p>
-    <p>name: {{ user.first_name|add:user.last_name }}</p>
-    <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>
+
+
     <a href="{% url 'training:workouts' %}">Workouts</a>
+
+    <p>birthday:{{ user.profile.birth }}</p>
+    <p>Name: {{ user.first_name|add:user.last_name }}</p>
+    <p>Height: {{ user.profile.height }}</p>
+    <p>Weight: {{ user.profile.weight }}</p>
+    <p>Chest volume: {{ user.profile.chest_volume }}</p>
+    <p>Waist: {{ user.profile.waist }}</p>
+    <p>Arm volume: {{ user.profile.arm_volume }}</p>
+    <p>Hip volume: {{ user.profile.hip_volume }}</p>
+    <p><img src="{{ user.profile.photo.url }}" alt = "alternative text"></p>
+
+
 
 
 {% endblock %}
