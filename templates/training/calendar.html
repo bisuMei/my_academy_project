@@ -37,7 +37,9 @@
 {% block content %}
 
     <a href="{% url 'training:calendar' %}?{{ prev_month }}"> Previous Month </a><a href="{% url 'training:calendar' %}?{{ next_month }}"> Next Month </a>
-    <div id="calendar">{{ calendar }}</div>
+    <div id="calendar">
+        {{ calendar }}
+    </div>
 
 
 {% endblock %}

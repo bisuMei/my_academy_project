@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
 from django.contrib.auth.models import User
-from django_currentuser.middleware import (
-    get_current_user, get_current_authenticated_user)
+from django_currentuser.middleware import get_current_user
 
 
 from .models import Workout
@@ -18,7 +17,8 @@ class Calendar(HTMLCalendar):
         tasks_per_day = tasks.filter(start_time__day=day)
         d = ''
         for task in tasks_per_day:
-            d += f'<li class="calendar_list"> {task.title} </li>'
+            d += '<a href="%s">' % task.get_absolute_url()
+            d += f'<li class="calendar_list">{task.title}</li>'
         if day != 0:
             return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
         return '<td></td>'
