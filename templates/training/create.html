@@ -5,11 +5,19 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Create workout</h1>
-    <form method="post" class="form-group col-md-6">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Add workout</button>
-    <span>{{ error }}</span>
-    </form>
+    <div class="container ml-6">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="border p-5 my-5 opacity-bg">
+                    <h1>Create workout</h1>
+                    <form method="post" class="form-group col-md-11">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Add workout</button>
+                        <span>{{ error }}</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

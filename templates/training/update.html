@@ -5,14 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Update workout</h1>
-    <form method="post" class="form-group col-md-6">
-        {% csrf_token %}
-        {{ form.title }}<br>
-        {{ form.date }}<br>
-        {{ form.workout_body }}<br>
-        {{ form.user }}<br>
+    <div class="container ml-6">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <h1>Update workout</h1>
+                <form method="post" class="form-group col-md-12">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-        <button type="submit" class="btn btn-success">Update workout</button>
-    </form>
+                    <button type="submit" class="btn btn-success">Update workout</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

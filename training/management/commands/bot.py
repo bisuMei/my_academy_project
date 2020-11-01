@@ -23,14 +23,7 @@ PROXY_URL = 'https://telegg.ru/orig/bot'
 
 button_help = 'Помощь'
 
-# tasks = Workout.objects.all()
-# for task in tasks:
-#     u = "Evgeniy"
-#     if str(task.user) == u:
-#         print(task.start_time)
-
-#print(tasks)
-
+#
 def log_error(f):
 
     def inner(*args, **kwargs):
