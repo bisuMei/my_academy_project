@@ -16,6 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -150,3 +151,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
+
+TOKEN = '1181578693:AAHvArBcv1w621lI-dMPEDAzyJFFyMXrsXQ'
+
+PROXY_URL = 'https://telegg.ru/orig/bot'

@@ -28,6 +28,7 @@ class Workout(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE, null=True)
+    external_id = models.PositiveIntegerField(verbose_name='Id in telegram', null=True, unique=True)
     birth = models.DateTimeField(blank=True, null=True)
     height = models.IntegerField(null=True)
     weight = models.IntegerField(null=True)
