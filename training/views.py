@@ -11,7 +11,7 @@ from django.utils.safestring import mark_safe
 
 from . import forms
 from . import models
-from .forms import RegisterForm, WorkoutForm
+from .forms import RegisterForm, WorkoutForm, ProfileForm
 
 from django.views.generic import ListView, UpdateView
 
@@ -62,6 +62,8 @@ def register(request):
             user = form.save()
             group = form.cleaned_data['group']
             group.user_set.add(user)
+            models.Profile.objects.create(user=user,
+                                          photo='unknown.jpg')
             return redirect('/')
     else:
         form = RegisterForm()
@@ -102,8 +104,16 @@ def create(request):
 
 
 @login_required
-def view_profile(request):
-    return render(request, 'profile.html', {'user': request.user})
+def view_profile(request, id):
+    profile = get_object_or_404(models.Profile, pk=id)
+    form = ProfileForm(request.POST, instance=profile)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    form = ProfileForm()
+    context = {'form': form}
+    return render(request, 'profile.html', context)
 
 
 def workout_details(request, id):
