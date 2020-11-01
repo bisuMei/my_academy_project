@@ -4,17 +4,19 @@
 }
 main{
 
-  /*background-image: url(https://picsum.photos/800/600);*/
-  background: #0250c5;
-  background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: -o-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: -moz-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: linear-gradient(bottom, #0250c5, #d43f8d);
+/*https://picsum.photos/800/600*/
+  background-image: url(https://i.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU);
+  /*background: #0250c5;*/
+  /*background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);*/
+  /*background: -o-linear-gradient(bottom, #0250c5, #d43f8d);*/
+  /*background: -moz-linear-gradient(bottom, #0250c5, #d43f8d);*/
+  /*background: linear-gradient(bottom, #0250c5, #d43f8d);*/
   background-size: cover;
   background-position: center;
   min-height: 100vh;
 }
 .calendar {
+  background-image: url(https://i.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU);
   width: 98%;
   margin: auto;
   font-size: 13px;

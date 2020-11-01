@@ -12,10 +12,14 @@
                         <a class="nav-link" href="{% url "training:workouts" %}">All workouts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "training:update_workout" workout.id %}">Update</a>
+                        {% if perms.training.change_workout %}
+                            <a class="nav-link" href="{% url "training:update_workout" workout.id %}">Update</a>
+                        {% endif %}
                     </li>
                     <li class="nav-item">
+                        {% if perms.training.delete_workout %}
                         <a class="nav-link" href="{% url "training:delete_workout" workout.id %}">Delete</a>
+                        {% endif %}
                     </li>
                 </ul>
             </nav>
@@ -23,10 +27,10 @@
             <h1>{{ workout.title }}</h1>
             <p>{{ workout.workout_body|linebreaks }}</p>
             <p>{% for comment in workout.comments.all %}</p>
-            <p>Comment #{{ forloop.counter }} by {{ comment.name }}</p>
+            <p>Comment #{{ forloop.counter }} by {{ user.username }}</p>
             <p>{{ comment.body }}</p>
             {% empty %}
-                No comments. You can leave one
+                No comments
             {% endfor %}
             <a class="open-dropdown btn btn-outline-primary mx-2" href="#"><span>Open</span> Comment Form</a>
             <div class="dropdown my-4">

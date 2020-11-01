@@ -27,7 +27,7 @@ class Workout(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE, null=True)
     birth = models.DateTimeField(blank=True, null=True)
     height = models.IntegerField(null=True)
     weight = models.IntegerField(null=True)
@@ -48,7 +48,8 @@ class Comment(models.Model):
     workout = models.ForeignKey(Workout,
                                 on_delete=models.CASCADE,
                                 related_name='comments')
-    name = models.CharField(max_length=80)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE, null=True)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 

@@ -104,16 +104,18 @@ def create(request):
 
 
 @login_required
-def view_profile(request, id):
-    profile = get_object_or_404(models.Profile, pk=id)
-    form = ProfileForm(request.POST, instance=profile)
+def view_profile(request):
     if request.method == "POST":
+        form = forms.ProfileForm(data=request.POST,
+                                 instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return redirect('/')
-    form = ProfileForm()
-    context = {'form': form}
-    return render(request, 'profile.html', context)
+            return render(request,
+                          'training/index.html',
+                          {'form': form})
+    else:
+        form = forms.ProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {'form': form})
 
 
 def workout_details(request, id):

@@ -42,7 +42,13 @@ class WorkoutForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['name', 'body']
+        fields = ['body']
+        widgets = {
+            'body': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Leave your comment'
+            })
+        }
 
 
 class ProfileForm(ModelForm):
