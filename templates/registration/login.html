@@ -3,17 +3,21 @@
 {% block title %} login {% endblock %}
 
 {% block content %}
-    <h2>User login:</h2>
-    {% if form.errors %}
-        BAD CREDENTIALS
-    {% endif %}
-    <form action="." method="post">
+<!-- Default form register -->
+<div class="container">
+    <div class="row">
+    <form class="border border p-5 col-lg-6 opacity-bg my-5"  action="." method="post">
+        <p class="h4 mb-4">User login:</p>
+        {% if form.errors %}
+            BAD CREDENTIALS
+        {% endif %}
         {{ form.as_p }}
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" value="Login">
+        <a href="{% url "training:password_reset" %}">Forgot your password?</a>
+        <input class="btn btn-outline-primary my-4 btn-block" type="submit" value="Login">
     </form>
-
-    <a href="{% url "training:password_reset" %}">Forgot your password?</a>
+</div>
+</div>
+<!-- Default form register -->
 {% endblock %}
-

@@ -5,21 +5,24 @@ Hello mate
 {% endblock %}
 
 {% block content %}
-    <h1>Your daily workout</h1>
-
+<div class="container">
+    <h1 class="text-light my-3">Your daily workout</h1>
+    <div class="row">
         {% for workout in user.user_workout.all %}
+            <div class="col-md-6 col-lg-6">
+                <div class="border p-5 my-2 opacity-bg">
+                    <h2>
+                        <a href="{{ workout.get_absolute_url }}">
+                            {{ workout.title }}
+                        </a>
+                    </h2>
 
-            <h2>
-                <a href="{{ workout.get_absolute_url }}">
-                    {{ workout.title }}
-                </a>
-            </h2>
-
-            <p>
-                {{ workout.workout_body|linebreaks }}
-            </p>
+                    <p>
+                        {{ workout.workout_body|linebreaks }}
+                    </p>
+                </div>
+            </div>
         {% endfor %}
-
-
-
+    </div>
+</div>
 {% endblock %}
