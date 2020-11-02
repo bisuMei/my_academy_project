@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Clients
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-light my-3">Your clients</h1>
+    <div class="row">
+        {% for user in users %}
+{#            {% for workout in workouts %}#}
+                <div class="col-md-6 col-lg-6">
+                    <div class="border p-5 my-2 opacity-bg">
+                        <h2>
+                            <a href="{% url "training:view_profile" user.profile.id%}">
+                                 {{ user }}
+                            </a>
+
+                        </h2>
+                    </div>
+                </div>
+{#            {% endfor %}#}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

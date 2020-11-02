@@ -15,7 +15,7 @@ from .forms import RegisterForm, WorkoutForm, ProfileForm
 
 from django.views.generic import ListView, UpdateView
 
-from .models import Workout
+from .models import Workout, Profile
 
 from _datetime import datetime, timedelta
 
@@ -104,7 +104,7 @@ def create(request):
 
 
 @login_required
-def view_profile(request):
+def update_profile(request):
     if request.method == "POST":
         form = forms.ProfileForm(data=request.POST,
                                  instance=request.user.profile)
@@ -116,6 +116,20 @@ def view_profile(request):
     else:
         form = forms.ProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'form': form})
+
+
+def view_profile(request, id):
+    profile = get_object_or_404(models.Profile, pk=id)
+    return render(request, 'training/view_profile.html', {'profile': profile})
+
+def personal_workouts(requset, id):
+    pers_workouts = Workout.objects.filter(user_id__exact=id)
+    return render(requset, 'training/personal_work.html', {'workouts': pers_workouts })
+
+
+def all_clients(request):
+    users_list = User.objects.all()
+    return render(request, 'training/clients.html', {'users': users_list})
 
 
 def workout_details(request, id):

@@ -49,8 +49,7 @@ class Comment(models.Model):
     workout = models.ForeignKey(Workout,
                                 on_delete=models.CASCADE,
                                 related_name='comments')
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=50, null=True)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 

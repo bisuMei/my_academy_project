@@ -27,7 +27,7 @@
             <h1>{{ workout.title }}</h1>
             <p>{{ workout.workout_body|linebreaks }}</p>
             <p>{% for comment in workout.comments.all %}</p>
-            <p>Comment #{{ forloop.counter }} by {{ user.username }}</p>
+            <p>Comment #{{ forloop.counter }} by {{ comment.name }}</p>
             <p>{{ comment.body }}</p>
             {% empty %}
                 No comments

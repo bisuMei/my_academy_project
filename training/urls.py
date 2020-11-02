@@ -14,6 +14,7 @@ class MyHack(auth_views.PasswordResetView):
 urlpatterns = [
     path('', views.index, name="home"),
     path('workouts/', views.all_workouts, name='workouts'),
+    path('clients/', views.all_clients, name='users'),
     path('about_me/', views.about_me, name='about_me'),
     path('detail/<int:id>/', views.workout_details, name='workout_details'),
     path('update/<int:id>/', views.update_workout, name='update_workout'),
@@ -29,8 +30,10 @@ urlpatterns = [
          ), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('register/', views.register, name="register"),
-    path('profile/', views.view_profile, name='profile'),
-    path('calendar/', views.CalendarView.as_view(), name='calendar')
+    path('profile/', views.update_profile, name='profile'),
+    path('calendar/', views.CalendarView.as_view(), name='calendar'),
+    path('profile/<int:id>/', views.view_profile, name='view_profile'),
+    path('personal/<int:id>/', views.personal_workouts, name="personal_workouts"),
     ]
 
 

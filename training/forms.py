@@ -42,8 +42,11 @@ class WorkoutForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['body']
+        fields = ['name', 'body']
         widgets = {
+            'name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': "Type your name"}),
             'body': Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Leave your comment'
