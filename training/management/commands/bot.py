@@ -2,28 +2,20 @@ import os
 import gym_app.wsgi
 from telegram import Bot
 from telegram import Update
-from telegram import KeyboardButton
-from telegram import ReplyKeyboardMarkup
-from telegram import ReplyKeyboardRemove
 from telegram.ext import CallbackContext
 from telegram.ext import Updater
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
 from telegram.utils.request import Request
-from django_currentuser.middleware import get_current_user
-
+from training.models import Workout
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-
-from training.models import Workout, Profile
 
 TOKEN = '1181578693:AAHvArBcv1w621lI-dMPEDAzyJFFyMXrsXQ'
 
 PROXY_URL = 'https://telegg.ru/orig/bot'
 
-button_help = 'Помощь'
 
-#
 def log_error(f):
 
     def inner(*args, **kwargs):
@@ -36,13 +28,6 @@ def log_error(f):
     return inner
 
 
-def button_help_handler(update: Update, context: CallbackContext):
-    update.message.reply_text(
-        text='Это помощь!',
-        reply_markup=ReplyKeyboardRemove(),
-    )
-
-
 @log_error
 def message_handler(update: Update, context: CallbackContext):
     date_lst = []
@@ -53,7 +38,7 @@ def message_handler(update: Update, context: CallbackContext):
             date_lst.append(task.start_time)
     reply_text = "Your next workout at {}".format(date_lst[-1])
     update.message.reply_text(
-        text=reply_text
+        text=reply_text[:-9]
     )
 
 

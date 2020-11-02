@@ -22,11 +22,14 @@
                 <h1>Hello {{ request.user.username }}</h1>
             </div>
             <div class="d-flex flex-row-reverse">
+
                 <a class="btn btn-secondary btn-lg" href="{% url 'training:workouts' %}">Workouts</a>
             </div>
             <br>
             <div class="d-flex flex-row-reverse">
+                {% if perms.training.change_workout %}
                 <a class="btn btn-secondary btn-lg" href="{% url 'training:users' %}">Clients</a>
+                {% endif %}
             </div>
         </div>
 
