@@ -122,9 +122,10 @@ def view_profile(request, id):
     profile = get_object_or_404(models.Profile, pk=id)
     return render(request, 'training/view_profile.html', {'profile': profile})
 
-def personal_workouts(requset, id):
+
+def personal_workouts(request, id):
     pers_workouts = Workout.objects.filter(user_id__exact=id)
-    return render(requset, 'training/personal_work.html', {'workouts': pers_workouts })
+    return render(request, 'training/personal_work.html', {'workouts': pers_workouts})
 
 
 def all_clients(request):

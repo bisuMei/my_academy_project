@@ -8,9 +8,9 @@
         <div class="border p-5 my-5 col-lg-6 opacity-bg">
             <nav class="navbar-expand">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url "training:workouts" %}">All workouts</a>
-                    </li>
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link" href="{% url "training:personal_workouts" %}">All workouts</a>#}
+{#                    </li>#}
                     <li class="nav-item">
                         {% if perms.training.change_workout %}
                             <a class="nav-link" href="{% url "training:update_workout" workout.id %}">Update</a>
