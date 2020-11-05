@@ -97,25 +97,28 @@ def create(request):
     return render(request, 'training/create.html', context)
 
 
-# class MaterialListView(LoginRequiredMixin, ListView):
-#     queryset = models.Workout.objects.all()
-#     context_object_name = 'workouts'
-#     template_name = 'training/workouts.html'
-
-
 @login_required
 def update_profile(request):
     if request.method == "POST":
         form = forms.ProfileForm(data=request.POST,
-                                 instance=request.user.profile)
+                                 instance=request.user.profile,
+                                 files=request.FILES)
+        user_form = forms.UserForm(data=request.POST,
+                                   instance=request.user)
         if form.is_valid():
+            if not form.cleaned_data['photo']:
+                form.cleaned_data['photo'] = request.user.profile.photo
+                form.save()
+            user_form.save()
             form.save()
             return render(request,
                           'training/index.html',
-                          {'form': form})
+                          {'form': form,
+                           'user_form': user_form})
     else:
         form = forms.ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'form': form})
+        user_form = forms.UserForm(instance=request.user)
+    return render(request, 'profile.html', {'form': form, 'user_form': user_form})
 
 
 def view_profile(request, id):

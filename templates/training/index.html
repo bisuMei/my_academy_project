@@ -20,6 +20,9 @@
         <div class="col-md-6 col-lg-6">
             <div class="border p-5 my-5 opacity-bg">
                 <h1>Hello {{ request.user.username }}</h1>
+                {% if user.profile.photo %}
+                    <p><img src="{{ user.profile.photo.url }}" alt = "Photo"></p>
+                {% endif %}
             </div>
             <div class="d-flex flex-row-reverse">
 

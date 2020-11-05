@@ -150,7 +150,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 TOKEN = '1181578693:AAHvArBcv1w621lI-dMPEDAzyJFFyMXrsXQ'
 

@@ -6,8 +6,9 @@
         <div class="container ml-6">
             <div class="row">
                 <div class="col-md-6 col-lg-6 mt-1 opacity-bg">
-                    <form method="post" class="form-group col-md-6">
+                    <form method="post" class="form-group col-md-6" enctype="multipart/form-data">
                         {% csrf_token %}
+                        {{ user_form.as_p }}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-success">Save changes</button>
                     </form>
