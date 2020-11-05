@@ -127,7 +127,7 @@ def view_profile(request, id):
 
 
 def personal_workouts(request, id):
-    pers_workouts = Workout.objects.filter(user_id__exact=id)
+    pers_workouts = Workout.objects.filter(user_id=id)
     return render(request, 'training/personal_work.html', {'workouts': pers_workouts})
 
 
