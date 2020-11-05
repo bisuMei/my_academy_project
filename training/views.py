@@ -23,7 +23,6 @@ import calendar
 from .utils import Calendar
 
 
-
 @login_required
 def index(request):
     return render(request, 'training/index.html', {'title': 'Main page'})
