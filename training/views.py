@@ -86,7 +86,7 @@ def create(request):
             user_.save()
             workout_.user = user_
             workout_.save()
-            return redirect('/workouts')
+            return redirect('/clients')
         else:
             error = "Entered incorrect data"
     form = WorkoutForm()

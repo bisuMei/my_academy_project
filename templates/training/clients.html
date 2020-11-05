@@ -9,7 +9,7 @@ Clients
     <h1 class="text-light my-3">Your clients</h1>
     <div class="row">
         {% for user in users %}
-            {% if request.user != user %}
+            {% if user.username != 'admin' and request.user != user %}
                 <div class="col-md-6 col-lg-6">
                     <div class="border p-5 my-2 opacity-bg">
                         <h2>
