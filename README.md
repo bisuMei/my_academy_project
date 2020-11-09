@@ -1,7 +1,7 @@
 # my_academy_project
 ## This is an application for interaction trainer - client for online training, with the possibility of feedback, entries in the calendar and telegram bot
 
-
+![1](https://user-images.githubusercontent.com/62523428/98561204-74188900-225d-11eb-88b1-feda26f4cbcd.png)
 
   1. активируй виртуальное окружение: python -m venv myvenv
                                       myenv/bin/activate
